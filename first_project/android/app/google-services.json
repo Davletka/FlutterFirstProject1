@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "557743453551",
+    "project_id": "clown-bd7c1",
+    "storage_bucket": "clown-bd7c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557743453551:android:b5ad060c998b656098e49a",
+        "android_client_info": {
+          "package_name": "com.example.first_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557743453551-q65r1nd5gbgt9l48rrlf22eulqqjluo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiRWRh8WgNarKzCNWGYvPv7I_K4MoTxmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557743453551-q65r1nd5gbgt9l48rrlf22eulqqjluo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
