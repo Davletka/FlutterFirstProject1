@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:first_project/card.dart';
 import 'package:first_project/drawer.dart';
+import 'package:first_project/pages/add_deal.dart';
 import 'package:first_project/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -88,21 +89,29 @@ class _MyWidgetState extends State<HomePage> {
                         },
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, '/addDeal').then((value) {
-                          FirebaseFirestore.instance
-                              .collection('DealCollection')
-                              .doc(snapshot.data?.docs[index].id)
-                              .set({
-                            'title': activeDeal.title,
-                            'subtitle': activeDeal.discription
+                        setState(() {
+                          activeDeal = new Deal(
+                              title: snapshot.data?.docs[index].get('title'),
+                              discription:
+                                  snapshot.data?.docs[index].get('subtitle'));
+                          isActive = true;
+                          indexDeal = index;
+                        });
+                        Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => new AddPageDeal()))
+                            .then((value) {
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection('DealCollection')
+                                .doc(snapshot.data?.docs[index].id)
+                                .set({
+                              'title': activeDeal.title,
+                              'subtitle': activeDeal.discription
+                            });
                           });
                         });
-                        activeDeal.discription =
-                            snapshot.data?.docs[index].get('subtitle');
-                        activeDeal.title =
-                            snapshot.data?.docs[index].get('title');
-
-                        isActive = true;
                       },
                     ),
                   );
@@ -171,9 +180,14 @@ class _MyWidgetState extends State<HomePage> {
         floatingActionButton: index == 0
             ? FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/addDeal');
-                  activeDeal = new Deal(title: "", discription: "");
-                  isActive = false;
+                  setState(() {
+                    isActive = false;
+                    activeDeal = new Deal(title: "", discription: "");
+                  });
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new AddPageDeal()));
                 },
                 child: const Icon(Icons.add),
               )
@@ -230,3 +244,4 @@ class _MyWidgetState extends State<HomePage> {
 Deal activeDeal = Deal();
 
 bool isActive = false;
+int indexDeal = 0;

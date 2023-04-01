@@ -13,11 +13,18 @@ class AddPageDeal extends StatefulWidget {
   State<AddPageDeal> createState() => _MyWidgetState();
 }
 
-TextEditingController titleController = TextEditingController();
-
-TextEditingController subtitleController = TextEditingController();
-
 class _MyWidgetState extends State<AddPageDeal> {
+  TextEditingController titleController = TextEditingController();
+
+  TextEditingController subtitleController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    titleController.dispose();
+    subtitleController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     titleController.text = activeDeal.title!;
@@ -103,16 +110,22 @@ class _MyWidgetState extends State<AddPageDeal> {
                   backgroundColor: MaterialStatePropertyAll(Colors.red),
                 ),
                 onPressed: () async {
-                  if (isActive = false) {
+                  if (isActive) {
+                    // FirebaseFirestore.instance
+                    //     .collection('DealCollection')
+                    //     .add({
+                    //   'title': titleController.text,
+                    //   'subtitle': subtitleController.text
+                    // });
+                    activeDeal.discription = subtitleController.text;
+                    activeDeal.title = titleController.text;
+                  } else {
                     FirebaseFirestore.instance
                         .collection('DealCollection')
                         .add({
                       'title': titleController.text,
                       'subtitle': subtitleController.text
                     });
-                  } else {
-                    activeDeal.discription = subtitleController.text;
-                    activeDeal.title = titleController.text;
                   }
 
                   titleController.text = "";
